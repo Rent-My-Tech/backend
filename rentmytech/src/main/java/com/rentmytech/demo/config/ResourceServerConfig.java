@@ -12,6 +12,8 @@ import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHand
  * Once the client has gained authorization, users need to gain authentication. This class is response for handling that.
  * It also configures which roles have access to which endpoints. So controls the users' access!
  */
+
+//UPDATE THIS TO ADD OWNER AND RENTER ROLES
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfig
@@ -68,10 +70,10 @@ public class ResourceServerConfig
                 .hasAnyRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE,
                         "/users/**")
-                .hasAnyRole("ADMIN")
+                .hasAnyRole("OWNER")
                 .antMatchers(HttpMethod.PUT,
                         "/users/**")
-                .hasAnyRole("ADMIN")
+                .hasAnyRole("RENTER")
                 .antMatchers("/users/**",
                         "/useremails/**",
                         "/oauth/revoke-token",

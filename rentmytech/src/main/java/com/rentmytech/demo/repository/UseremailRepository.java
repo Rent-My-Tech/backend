@@ -1,6 +1,9 @@
 package com.rentmytech.demo.repository;
 
-public class UseremailRepository
+import com.rentmytech.demo.models.Useremail;
+import org.springframework.data.repository.CrudRepository;
+
+public interface UseremailRepository extends CrudRepository<Useremail, Long>
 {
 
 }

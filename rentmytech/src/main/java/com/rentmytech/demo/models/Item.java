@@ -19,12 +19,8 @@ public class Item extends Auditable
 
     @ManyToOne
     @JoinColumn(name = "userid")
-    @JsonIgnoreProperties("projects")
+    @JsonIgnoreProperties("items")
     private User user;
-
-    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties(value = "item", allowSetters = true)
-    private List<ItemImage> itemImages = new ArrayList<>();
 
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties(value = "item", allowSetters = true)
@@ -41,13 +37,13 @@ public class Item extends Auditable
 
     }
 
-    public Item(User user, String itemname, String itemdescription, String owner, String projectimage, int itemcost)
+    public Item(User user, String itemname, String itemdescription, String owner, String itemimage, int itemcost)
     {
         this.user = user;
         this.itemname = itemname;
         this.itemdescription = itemdescription;
         this.owner = owner;
-        this.itemimage = projectimage;
+        this.itemimage = itemimage;
         this.itemcost = itemcost;
     }
 
@@ -102,13 +98,6 @@ public class Item extends Auditable
         this.owner = owner;
     }
 
-    public String getProjectimage() {
-        return itemimage;
-    }
-
-    public void setProjectimage(String projectimage) {
-        this.itemimage = projectimage;
-    }
 
     public int getItemcost() {
         return itemcost;
@@ -116,14 +105,6 @@ public class Item extends Auditable
 
     public void setItemcost(int itemcost) {
         this.itemcost = itemcost;
-    }
-
-    public List<ItemImage> getItemImages() {
-        return itemImages;
-    }
-
-    public void setItemImages(List<ItemImage> itemImages) {
-        this.itemImages = itemImages;
     }
 
     public List<ItemRating> getItemRatings() {

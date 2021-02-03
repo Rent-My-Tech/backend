@@ -1,6 +1,6 @@
 package com.rentmytech.demo.controllers;
 
-import com.rentmytech.demo.models.NewUser;
+
 import com.rentmytech.demo.models.User;
 import com.rentmytech.demo.models.UserRoles;
 import com.rentmytech.demo.services.RoleService;
@@ -36,7 +36,7 @@ public class SigninContoller
     private RoleService roleService;
 
     @PostMapping(value = "/createnewuser/{roleName}", consumes = {"application/json"}, produces = {"application/json"})
-    public ResponseEntity<?> addNewUser(HttpServletRequest httpServletRequest, @PathVariable String roleName, @Valid @RequestBody NewUser newUser) throws URISyntaxException
+    public ResponseEntity<?> addNewUser(HttpServletRequest httpServletRequest, @PathVariable String roleName, @Valid @RequestBody User user) throws URISyntaxException
     {
         //Creating a user
 
@@ -51,6 +51,12 @@ public class SigninContoller
         UserRoles adminRole = new UserRoles(newuser, roleService.findByName("admin"));
         UserRoles ownerRole = new UserRoles(newuser, roleService.findByName("owner"));
         UserRoles renterRole = new UserRoles(newuser, roleService.findByName("renter"));
+
+        Set<UserRoles> newUserRoles = new HashSet<>();
+        newRoles.add(new UserRoles(newuser,roleService.findByName("admin")));
+        newuser.setUserroles(newUserRoles);
+
+        newuser = userService.save(newuser);
 
         switch (roleName)
         {

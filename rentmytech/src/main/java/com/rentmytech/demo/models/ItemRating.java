@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 
+// Think about if we need an item rating
 @Entity
 @Table(name = "itemratings")
 public class ItemRating
@@ -17,6 +18,11 @@ public class ItemRating
     @JoinColumn(name = "itemid", nullable = false)
     @JsonIgnoreProperties(value = "itemratings", allowSetters = true)
     private Item item;
+
+    @ManyToOne
+    @JoinColumn(name = "userid", nullable = false)
+    @JsonIgnoreProperties(value = "itemratings", allowSetters = true)
+    private User user;
 
     public ItemRating()
     {

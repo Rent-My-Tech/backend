@@ -49,18 +49,26 @@ public class User extends Auditable
     @JsonIgnoreProperties("user")
     private List<Item> items = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user")
+    @JsonIgnoreProperties(value = "user", allowSetters = true)
+    private List<ItemList> myItemList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    @JsonIgnoreProperties(value = "user", allowSetters = true)
+    private List<ItemRating> itemRatings = new ArrayList<>();
+
     public User()
     {
 
     }
 
 
-    public User(String username, String password,  String email, String usertype, List<Item> items) {
+    public User(String username, String password,  String email, String usertype) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.usertype = usertype;
-        this.items = items;
+
     }
 
     public User(String usertype)
@@ -158,6 +166,22 @@ public class User extends Auditable
 
     public void setItems(List<Item> items) {
         this.items = items;
+    }
+
+    public List<ItemList> getMyItemList() {
+        return myItemList;
+    }
+
+    public void setMyItemList(List<ItemList> myItemList) {
+        this.myItemList = myItemList;
+    }
+
+    public List<ItemRating> getItemRatings() {
+        return itemRatings;
+    }
+
+    public void setItemRatings(List<ItemRating> itemRatings) {
+        this.itemRatings = itemRatings;
     }
 
     @Override
