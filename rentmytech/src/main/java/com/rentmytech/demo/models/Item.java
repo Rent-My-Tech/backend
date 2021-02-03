@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "items")
@@ -20,10 +22,18 @@ public class Item extends Auditable
     @JsonIgnoreProperties("projects")
     private User user;
 
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties(value = "item", allowSetters = true)
+    private List<ItemImage> itemImages = new ArrayList<>();
+
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnoreProperties(value = "item", allowSetters = true)
+    private List<ItemRating> itemRatings = new ArrayList<>();
+
     private String itemname;
     private String itemdescription;
     private String owner;
-    private String projectimage;
+    private String itemimage;
     private int itemcost;
 
     public Item()
@@ -37,7 +47,7 @@ public class Item extends Auditable
         this.itemname = itemname;
         this.itemdescription = itemdescription;
         this.owner = owner;
-        this.projectimage = projectimage;
+        this.itemimage = projectimage;
         this.itemcost = itemcost;
     }
 
@@ -93,11 +103,11 @@ public class Item extends Auditable
     }
 
     public String getProjectimage() {
-        return projectimage;
+        return itemimage;
     }
 
     public void setProjectimage(String projectimage) {
-        this.projectimage = projectimage;
+        this.itemimage = projectimage;
     }
 
     public int getItemcost() {
@@ -106,5 +116,29 @@ public class Item extends Auditable
 
     public void setItemcost(int itemcost) {
         this.itemcost = itemcost;
+    }
+
+    public List<ItemImage> getItemImages() {
+        return itemImages;
+    }
+
+    public void setItemImages(List<ItemImage> itemImages) {
+        this.itemImages = itemImages;
+    }
+
+    public List<ItemRating> getItemRatings() {
+        return itemRatings;
+    }
+
+    public void setItemRatings(List<ItemRating> itemRatings) {
+        this.itemRatings = itemRatings;
+    }
+
+    public String getItemimage() {
+        return itemimage;
+    }
+
+    public void setItemimage(String itemimage) {
+        this.itemimage = itemimage;
     }
 }

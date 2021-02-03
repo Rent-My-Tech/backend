@@ -6,8 +6,11 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -19,18 +22,24 @@ public class User extends Auditable
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long userid;
 
+
     @Column(nullable = false, unique = true)
     private String username;
+
 
     @Column(nullable = false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
+
+    @Column(nullable = false)
+    private String email;
+
     private String usertype; //Owner or Renter
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties("user")
-    private List<UserRoles> userroles = new ArrayList<>();
+    private Set<UserRoles> userroles = new HashSet<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties("user")
@@ -46,15 +55,12 @@ public class User extends Auditable
     }
 
 
-    public User(String username, String password, List<UserRoles> userroles)
-    {
-        setUsername(username);
-        setPassword(password);
-        for (UserRoles ur : userroles)
-        {
-            ur.setUser(this);
-        }
-        this.userroles = userroles;
+    public User(String username, String password,  String email, String usertype, List<Item> items) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.usertype = usertype;
+        this.items = items;
     }
 
     public User(String usertype)
@@ -119,13 +125,12 @@ public class User extends Auditable
         this.usertype = usertype;
     }
 
-    public List<UserRoles> getUserroles()
-    {
+
+    public Set<UserRoles> getUserroles() {
         return userroles;
     }
 
-    public void setUserroles(List<UserRoles> userroles)
-    {
+    public void setUserroles(Set<UserRoles> userroles) {
         this.userroles = userroles;
     }
 
@@ -137,6 +142,22 @@ public class User extends Auditable
     public void setUseremails(List<Useremail> useremails)
     {
         this.useremails = useremails;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 
     @Override
