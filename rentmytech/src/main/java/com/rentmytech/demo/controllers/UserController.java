@@ -66,7 +66,7 @@ public class UserController
         return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "/user/{userid}", consumes = "application/json") //not working yet
+    @PutMapping(value = "/user/{userid}", consumes = "application/json") // working
     public ResponseEntity<?> updateFullUser(@Valid @RequestBody User updateUser, @PathVariable long userid)
     {
         updateUser.setUserid(userid);

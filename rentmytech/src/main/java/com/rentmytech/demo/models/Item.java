@@ -17,10 +17,10 @@ public class Item extends Auditable
     @ApiModelProperty(name = "itemid", value = "primary key for item")
     private long itemid;
 
-    @ManyToOne
-    @JoinColumn(name = "userid")
-    @JsonIgnoreProperties("items")
-    private User user;
+//    @ManyToOne
+//    @JoinColumn(name = "userid")
+//    @JsonIgnoreProperties(value = "items", allowSetters = true)
+//    private User user;
 
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties(value = "item", allowSetters = true)
@@ -38,7 +38,6 @@ public class Item extends Auditable
 
     public Item(String itemname, String itemdescription, String itemimage, int itemcost)
     {
-        setUser(null);
         this.itemname = itemname;
         this.itemdescription = itemdescription;
         this.itemimage = itemimage;
@@ -53,13 +52,13 @@ public class Item extends Auditable
         this.itemid = itemid;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
+//    public User getUser() {
+//        return user;
+//    }
+//
+//    public void setUser(User user) {
+//        this.user = user;
+//    }
 
     public String getItemname() {
         return itemname;

@@ -97,6 +97,12 @@ public class UserServiceImpl implements UserService
                     .add(new Useremail(ue.getUseremail(),
                             newUser));
         }
+
+        for(ItemList itemList : user.getMyItemList())
+        {
+            newUser.getMyItemList()
+                    .add(new ItemList(newUser, itemList.getItem()));
+        }
         return userRepository.save(newUser);
     }
 
@@ -122,6 +128,8 @@ public class UserServiceImpl implements UserService
         {
             currentUser.setEmail(user.getEmail().toLowerCase());
         }
+
+
 
         if (user.getUserroles().size() > 0)
         {

@@ -38,16 +38,16 @@ public class User extends Auditable
     private String usertype; //Owner or Renter
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties("user")
+    @JsonIgnoreProperties(value = "user", allowSetters = true)
     private Set<UserRoles> userroles = new HashSet<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties("user")
+    @JsonIgnoreProperties(value = "user",allowSetters = true)
     private List<Useremail> useremails = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonIgnoreProperties("user")
-    private List<Item> items = new ArrayList<>();
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+//    @JsonIgnoreProperties(value = "user", allowSetters = true)
+//    private List<Item> items = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties(value = "user", allowSetters = true)
@@ -160,13 +160,13 @@ public class User extends Auditable
         this.email = email;
     }
 
-    public List<Item> getItems() {
-        return items;
-    }
-
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }
+//    public List<Item> getItems() {
+//        return items;
+//    }
+//
+//    public void setItems(List<Item> items) {
+//        this.items = items;
+//    }
 
     public List<ItemList> getMyItemList() {
         return myItemList;
@@ -193,7 +193,6 @@ public class User extends Auditable
                 ", usertype='" + usertype + '\'' +
                 ", userroles=" + userroles +
                 ", useremails=" + useremails +
-                ", items=" + items +
                 '}';
     }
 }

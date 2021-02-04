@@ -75,7 +75,7 @@ public class ItemController
     }
 
     //Patch request
-    @PatchMapping(value = "/item/{itemid}", consumes = "application/json") //not working as of 2/4
+    @PatchMapping(value = "/item/{itemid}", consumes = "application/json") // working as of 2/4
     public ResponseEntity<?> updatePatchItem(@RequestBody Item updatePatchItem, @PathVariable long itemid)
     {
 

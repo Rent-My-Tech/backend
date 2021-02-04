@@ -66,17 +66,26 @@ public class SeedData
 
         //ITEM SEED DATA
 
-        Item item1 = new Item("Computer",
-                "a computer",
-                "Imageurl",
-                2000);
+        Item item1 = new Item("Computer", "a computer", "Imageurl", 2000);
         item1 = itemService.save(item1);
         item1.getItemRatings().add(new ItemRating(3,item1));
 
+        Item item2 = new Item("Boombox","enjoy your favorite tunes","Imageurl", 150);
+        item2 = itemService.save(item2);
+        item2.getItemRatings().add(new ItemRating(5, item2));
 
-        //Rating seed data
 
+        Item item3 = new Item("Blender","blend your favorite fruits","Imageurl", 50);
+        item3 = itemService.save(item3);
+        item3.getItemRatings().add(new ItemRating(7, item3));
 
+        Item item4 = new Item("Gameboy","enjoy your favorite nostalgic games","Imageurl", 70);
+        item4 = itemService.save(item4);
+        item4.getItemRatings().add(new ItemRating(9, item4));
+
+        Item item5 = new Item("Television", "enjoy your favorite tv shows", "Imageurl", 1150);
+        item5 = itemService.save(item5);
+        item5.getItemRatings().add(new ItemRating(6, item5));
 
 
         // admin, data, user
@@ -84,18 +93,10 @@ public class SeedData
         u1.getUserroles()
                 .add(new UserRoles(u1,
                         r1));
-        u1.getUserroles()
-                .add(new UserRoles(u1,
-                        r2));
-        u1.getUserroles()
-                .add(new UserRoles(u1,
-                        r3));
         u1.getUseremails()
                 .add(new Useremail("admin@email.local",
                         u1));
-        u1.getUseremails()
-                .add(new Useremail("admin@mymail.local",
-                        u1));
+        u1.getMyItemList().add(new ItemList(u1, item1));
 
         userService.save(u1);
 
@@ -104,40 +105,37 @@ public class SeedData
         u2.getUserroles()
                 .add(new UserRoles(u2,
                         r2));
-        u2.getUserroles()
-                .add(new UserRoles(u2,
-                        r3));
+
         u2.getUseremails()
                 .add(new Useremail("email2@email.com",
                         u2));
-        u2.getUseremails()
-                .add(new Useremail("email3@email.com",
-                        u2));
-        u2.getUseremails()
-                .add(new Useremail("email4@email.com",
-                        u2));
+
+        u2.getMyItemList().add(new ItemList(u2, item2));
         userService.save(u2);
 
         // user renter
         User u3 = new User("Benjamin", "password1", "Benjamin@email.com", "renter");
         u3.getUserroles()
                 .add(new UserRoles(u3,
-                        r2));
+                        r3));
         u3.getUseremails()
                 .add(new Useremail("Benjamin@email.com",
                         u3));
+        u3.getMyItemList().add(new ItemList(u3, item3));
         userService.save(u3);
 
         User u4 = new User("Martha", "password2", "Martha@email.com", "renter");
         u4.getUserroles()
                 .add(new UserRoles(u4,
-                        r2));
+                        r3));
+        u4.getMyItemList().add(new ItemList(u4, item4));
         userService.save(u4);
 
         User u5 = new User("Phil", "password3", "email2@email.com", "renter");
         u5.getUserroles()
                 .add(new UserRoles(u5,
-                        r2));
+                        r3));
+        u5.getMyItemList().add(new ItemList(u5, item5));
         userService.save(u5);
 
         if (false)
