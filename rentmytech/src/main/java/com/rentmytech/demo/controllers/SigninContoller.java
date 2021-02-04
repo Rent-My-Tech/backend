@@ -1,6 +1,7 @@
 package com.rentmytech.demo.controllers;
 
 
+import com.rentmytech.demo.models.NewUser;
 import com.rentmytech.demo.models.User;
 import com.rentmytech.demo.models.UserRoles;
 import com.rentmytech.demo.services.RoleService;
@@ -27,8 +28,7 @@ import java.util.Set;
 
 
 @RestController
-public class SigninContoller
-{
+public class SigninContoller {
     @Autowired
     private UserService userService;
 
@@ -36,14 +36,14 @@ public class SigninContoller
     private RoleService roleService;
 
     @PostMapping(value = "/createnewuser/{roleName}", consumes = {"application/json"}, produces = {"application/json"})
-    public ResponseEntity<?> addNewUser(HttpServletRequest httpServletRequest, @PathVariable String roleName, @Valid @RequestBody User user) throws URISyntaxException
-    {
+    public ResponseEntity<?> addNewUser(HttpServletRequest httpServletRequest, @PathVariable String roleName, @Valid @RequestBody NewUser user) throws URISyntaxException {
         //Creating a user
 
         User newuser = new User();
-        newuser.setUsername(newuser.getUsername());
-        newuser.setPassword(newuser.getPassword());
-        newuser.setEmail(newuser.getEmail());
+        newuser.setUsername(user.getUsername());
+        newuser.setPassword(user.getPassword());
+        newuser.setEmail(user.getEmail());
+        newuser.setUsertype(user.getUsertype());
 
         // Creating the admin, owner and renter roles
         Set<UserRoles> newRoles = new HashSet<>();
@@ -52,21 +52,21 @@ public class SigninContoller
         UserRoles ownerRole = new UserRoles(newuser, roleService.findByName("owner"));
         UserRoles renterRole = new UserRoles(newuser, roleService.findByName("renter"));
 
-        newuser = userService.save(newuser);
+        switch (roleName) {
+            case "admin":
+                newRoles.add(adminRole);
 
-        switch (roleName)
-        {
-            case "admin" : newRoles.add(adminRole);
+                break;
 
-            break;
+            case "owner":
+                newRoles.add(ownerRole);
 
-            case "owner" : newRoles.add(ownerRole);
+                break;
 
-            break;
+            case "renter":
+                newRoles.add(renterRole);
 
-            case "renter" : newRoles.add(renterRole);
-
-            break;
+                break;
         }
 
         newuser.setUserroles(newRoles);
@@ -92,8 +92,8 @@ public class SigninContoller
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         map.add("grant_type", "password");
         map.add("scope", "read write trust");
-        map.add("username", newuser.getUsername());
-        map.add("password", newuser.getPassword());
+        map.add("username", user.getUsername());
+        map.add("password", user.getPassword());
 
         HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(map, headers);
         String myToken = restTemplate.postForObject(requestURI, request, String.class);

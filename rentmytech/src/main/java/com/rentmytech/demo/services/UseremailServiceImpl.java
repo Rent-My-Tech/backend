@@ -37,7 +37,7 @@ public class UseremailServiceImpl implements UseremailService
     {
         return useremailRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Email with id " + id + " not found!"));
     }
-
+    @Transactional
     @Override
     public void delete(long id)
     {
@@ -52,7 +52,7 @@ public class UseremailServiceImpl implements UseremailService
             }
         }
     }
-
+    @Transactional
     @Override
     public Useremail update(long emailid, String emailaddress)
     {
@@ -76,7 +76,7 @@ public class UseremailServiceImpl implements UseremailService
         }
 
     }
-
+    @Transactional
     @Override
     public Useremail save(long userid, String emailaddress)
     {

@@ -22,7 +22,7 @@ public class UseremailController
     private UseremailService useremailService;
 
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @GetMapping(value = "/useremails", produces = "application/json")
+    @GetMapping(value = "/useremails", produces = "application/json") // working as of 2/4
     public ResponseEntity<?> listAllUseremails()
     {
         List<Useremail> allUserEmails = useremailService.findAll();
@@ -30,28 +30,28 @@ public class UseremailController
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @GetMapping(value = "/useremail/{emailId}", produces = "application/json")
+    @GetMapping(value = "/useremail/{emailId}", produces = "application/json") // working as of 2/4
     public ResponseEntity<?> getUserEmailById(@PathVariable long emailId)
     {
         Useremail email = useremailService.findUseremailById(emailId);
         return new ResponseEntity<>(email, HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/useremail/{emailid}")
+    @DeleteMapping(value = "/useremail/{emailid}") // working as of 2/4
     public ResponseEntity<?> deleteUserEmailById(@PathVariable long emailid)
     {
         useremailService.delete(emailid);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping("/useremail/{emailid}/email/{emailaddress}")
+    @PutMapping("/useremail/{emailid}/email/{emailaddress}") // working as of 2/4
     public ResponseEntity<?> updateUserEmail(@PathVariable long emailid, @PathVariable String emailaddress)
     {
         useremailService.update(emailid, emailaddress);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping(value = "/user/{userid}/email/{emailaddress}")
+    @PostMapping(value = "/user/{userid}/email/{emailaddress}") //working as of 2/4
     public ResponseEntity<?> addNewEmail(@PathVariable long userid, @PathVariable String emailaddress) throws URISyntaxException
     {
         Useremail newUserEmail = useremailService.save(userid, emailaddress);

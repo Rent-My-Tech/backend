@@ -20,21 +20,21 @@ public class RoleController
     @Autowired
     private RoleService roleService;
 
-    @GetMapping(value = "/roles", produces = "application/json")
+    @GetMapping(value = "/roles", produces = "application/json") // working as of 2/4
     public ResponseEntity<?> listRoles()
     {
         List<Role> allRoles = roleService.findAll();
         return new ResponseEntity<>(allRoles, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/role/name/{roleName}", produces = "application/json")
+    @GetMapping(value = "/role/name/{roleName}", produces = "application/json") // working as of 2/4
     public ResponseEntity<?> getRoleByName(@PathVariable String roleName)
     {
         Role r = roleService.findByName(roleName);
         return new ResponseEntity<>(r, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/role", consumes = "application/json")
+    @PostMapping(value = "/role", consumes = "application/json") //working as of 2/4
     public ResponseEntity<?>addNewRole(@Valid @RequestBody Role newRole)
     {
         newRole.setRoleid(0);
@@ -48,7 +48,7 @@ public class RoleController
     }
 
 
-    @PutMapping(value = "/role/{roleid}", consumes = {"application/json"})
+    @PutMapping(value = "/role/{roleid}", consumes = {"application/json"}) //working as of 2/4
     public ResponseEntity<?> updateRole(@PathVariable long roleid, @Valid @RequestBody Role newRole)
     {
         newRole = roleService.update(roleid, newRole);

@@ -49,13 +49,13 @@ public class User extends Auditable
     @JsonIgnoreProperties("user")
     private List<Item> items = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonIgnoreProperties(value = "user", allowSetters = true)
     private List<ItemList> myItemList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
-    @JsonIgnoreProperties(value = "user", allowSetters = true)
-    private List<ItemRating> itemRatings = new ArrayList<>();
+//    @OneToMany(mappedBy = "user")
+//    @JsonIgnoreProperties(value = "user", allowSetters = true)
+//    private List<ItemRating> itemRatings = new ArrayList<>();
 
     public User()
     {
@@ -176,13 +176,13 @@ public class User extends Auditable
         this.myItemList = myItemList;
     }
 
-    public List<ItemRating> getItemRatings() {
-        return itemRatings;
-    }
-
-    public void setItemRatings(List<ItemRating> itemRatings) {
-        this.itemRatings = itemRatings;
-    }
+//    public List<ItemRating> getItemRatings() {
+//        return itemRatings;
+//    }
+//
+//    public void setItemRatings(List<ItemRating> itemRatings) {
+//        this.itemRatings = itemRatings;
+//    }
 
     @Override
     public String toString() {

@@ -58,11 +58,15 @@ public class UserServiceImpl implements UserService
         return username;
     }
 
+    @Transactional
     @Override
-    public void delete(long userid) {
-
+    public void delete(long userid)
+    {
+        userRepository.findById(userid).orElseThrow(()-> new ResourceNotFoundException("User id " + userid + " not found"));
+        userRepository.deleteById(userid);
     }
 
+    @Transactional
     @Override
     public User save(User user)
     {
@@ -77,6 +81,7 @@ public class UserServiceImpl implements UserService
         newUser.setUsername(user.getUsername().toLowerCase());
         newUser.setPasswordNoEncrypt(user.getPassword());
         newUser.setEmail(user.getEmail().toLowerCase());
+        newUser.setUsertype(user.getUsertype());
 
         newUser.getUserroles().clear();
         for (UserRoles userRoles : user.getUserroles())
@@ -95,6 +100,7 @@ public class UserServiceImpl implements UserService
         return userRepository.save(newUser);
     }
 
+    @Transactional
     @Override
     public User update(User user, long userid)
     {

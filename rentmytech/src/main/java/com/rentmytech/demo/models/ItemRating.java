@@ -19,10 +19,10 @@ public class ItemRating
     @JsonIgnoreProperties(value = "itemratings", allowSetters = true)
     private Item item;
 
-    @ManyToOne
-    @JoinColumn(name = "userid", nullable = false)
-    @JsonIgnoreProperties(value = "itemratings", allowSetters = true)
-    private User user;
+//    @ManyToOne
+//    @JoinColumn(name = "userid", nullable = false)
+//    @JsonIgnoreProperties(value = "itemratings", allowSetters = true)
+//    private User user;
 
     public ItemRating()
     {

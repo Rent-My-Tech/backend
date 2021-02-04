@@ -26,7 +26,7 @@ public class UserController
     private UserService userService;
 
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @GetMapping(value = "/users", produces = "application/json")
+    @GetMapping(value = "/users", produces = "application/json") //this endpoint works
     public ResponseEntity<?> listAllUsers()
     {
         List<User> myUsers = userService.findAll();
@@ -35,7 +35,7 @@ public class UserController
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @GetMapping(value = "/user/{userid}", produces = "application/json")
+    @GetMapping(value = "/user/{userid}", produces = "application/json") //this endpoint works
     public ResponseEntity<?> getUserById(@PathVariable Long userid)
     {
         User u = userService.findUserById(userid);
@@ -43,14 +43,14 @@ public class UserController
     }
 
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @GetMapping(value = "/user/name/{userName}", produces = "application/json")
+    @GetMapping(value = "/user/name/{userName}", produces = "application/json") //this endpoint works
     public ResponseEntity<?> getUserByName(@PathVariable String userName)
     {
         User u = userService.findByName(userName);
         return new ResponseEntity<>(u, HttpStatus.OK);
     }
 
-    @PostMapping(value = "/user", consumes = "application/json")
+    @PostMapping(value = "/user", consumes = "application/json")// works as of 2/4
     public ResponseEntity<?>addNewUser(@Valid @RequestBody User newuser)throws URISyntaxException
     {
         newuser.setUserid(0);
@@ -66,7 +66,7 @@ public class UserController
         return new ResponseEntity<>(null, responseHeaders, HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "/user/{userid}", consumes = "application/json")
+    @PutMapping(value = "/user/{userid}", consumes = "application/json") //not working yet
     public ResponseEntity<?> updateFullUser(@Valid @RequestBody User updateUser, @PathVariable long userid)
     {
         updateUser.setUserid(userid);
@@ -74,7 +74,7 @@ public class UserController
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PatchMapping(value = "/user/{id}", consumes = "application/json")
+    @PatchMapping(value = "/user/{id}", consumes = "application/json")//working as of 2/4
     public ResponseEntity<?> updateUser(@RequestBody User updateUser, @PathVariable long id)
     {
         userService.update(updateUser, id);
@@ -84,14 +84,14 @@ public class UserController
 
 
     @PreAuthorize("hasAnyRole('ADMIN')")
-    @DeleteMapping(value = "/user/{id}")
+    @DeleteMapping(value = "/user/{id}")// works as of 2/4
     public ResponseEntity<?> deleteUserById(@PathVariable long id)
     {
         userService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping(value = "/getuserinfo", produces = {"application/json"})
+    @GetMapping(value = "/getuserinfo", produces = {"application/json"}) //working as of 2/4
     public ResponseEntity<?> getUserInfo(Authentication authentication)
     {
         User u = userService.findByName(authentication.getName());

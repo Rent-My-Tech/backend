@@ -23,28 +23,28 @@ public class ItemController
 
     //Get Requests
 
-    @GetMapping(value = "/items", produces = "application/json")
+    @GetMapping(value = "/items", produces = "application/json") // workings as of 2/4
     public ResponseEntity<?> listAllItems()
     {
         List<Item> myItems = itemService.findAll();
         return new ResponseEntity<>(myItems, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/item/{itemid}", produces = "application/json")
+    @GetMapping(value = "/item/{itemid}", produces = "application/json") // workings as of 2/4
     public ResponseEntity<?> findItemById(@PathVariable long itemid)
     {
         Item item = itemService.findItemById(itemid);
         return new ResponseEntity<>(item, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/item/name/{itemName}", produces = "application/json")
+    @GetMapping(value = "/item/name/{itemName}", produces = "application/json") // workings as of 2/4
     public ResponseEntity<?> findItemByName(@PathVariable String itemName)
     {
         Item item = itemService.findItemByName(itemName);
         return new ResponseEntity<>(item, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/items/namelike/{itemNameSubstring}", produces = "application/json")
+    @GetMapping(value = "/items/namelike/{itemNameSubstring}", produces = "application/json")// workings as of 2/4
     public ResponseEntity<?> listItemNameLike(@PathVariable String itemNameSubstring)
     {
         List<Item> myItems = itemService.findItemByNameLike(itemNameSubstring);
@@ -52,7 +52,7 @@ public class ItemController
     }
 
     //Post Requests
-    @PostMapping(value = "/item", consumes = "application/json", produces = "application/json")
+    @PostMapping(value = "/item", consumes = "application/json", produces = "application/json") //working as of 2/4
     public ResponseEntity<?> addNewItem(@Valid @RequestBody Item newItem)
     {
         newItem = itemService.save(newItem);
@@ -66,7 +66,7 @@ public class ItemController
     }
 
     //Put requests
-    @PutMapping(value = "/item/{itemid}")
+    @PutMapping(value = "/item/{itemid}", consumes = "application/json") //working as of 2/4
     public ResponseEntity<?> updateItem(@RequestBody Item updateItem, @PathVariable long itemid)
     {
         updateItem.setItemid(itemid);
@@ -74,8 +74,17 @@ public class ItemController
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    //Patch request
+    @PatchMapping(value = "/item/{itemid}", consumes = "application/json") //not working as of 2/4
+    public ResponseEntity<?> updatePatchItem(@RequestBody Item updatePatchItem, @PathVariable long itemid)
+    {
+
+        itemService.update(updatePatchItem, itemid);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     //Delete requests
-    @DeleteMapping(value = "/item/{itemid}")
+    @DeleteMapping(value = "/item/{itemid}") // working as of 2/4
     public ResponseEntity<?> deleteItemById(@PathVariable long itemid)
     {
         itemService.delete(itemid);

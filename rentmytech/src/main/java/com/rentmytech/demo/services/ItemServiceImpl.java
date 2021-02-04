@@ -50,6 +50,7 @@ public class ItemServiceImpl implements ItemService
         return itemList;
     }
 
+    @Transactional
     @Override
     public Item save(Item item)
     {
@@ -69,7 +70,7 @@ public class ItemServiceImpl implements ItemService
         return itemRepository.save(newItem);
 
     }
-
+    @Transactional
     @Override
     public Item update(Item item, long id)
     {
@@ -89,7 +90,7 @@ public class ItemServiceImpl implements ItemService
             currentItem.setItemname(item.getItemname());
         }
 
-        if(item.getItemRatings() !=null)
+        if(item.getItemRatings().size() > 0)
         {
             currentItem.setItemRatings(item.getItemRatings());
         }
@@ -111,7 +112,7 @@ public class ItemServiceImpl implements ItemService
 
         return itemRepository.save(currentItem);
     }
-
+    @Transactional
     @Override
     public void delete(long id)
     {
@@ -124,7 +125,7 @@ public class ItemServiceImpl implements ItemService
         throw new ResourceNotFoundException("Item id " + id + " not found");
     }
     }
-
+    @Transactional
     @Override
     public void deleteAllItems()
     {

@@ -4,6 +4,7 @@ import com.github.javafaker.Faker;
 import com.github.javafaker.service.FakeValuesService;
 import com.github.javafaker.service.RandomService;
 import com.rentmytech.demo.models.*;
+import com.rentmytech.demo.services.ItemService;
 import com.rentmytech.demo.services.RoleService;
 import com.rentmytech.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,9 @@ public class SeedData
     @Autowired
     UserService userService;
 
+    @Autowired
+    ItemService itemService;
+
     /**
      * Generates test, seed data for our application
      * First a set of known data is seeded into our database.
@@ -62,7 +66,18 @@ public class SeedData
 
         //ITEM SEED DATA
 
-        Item item1 = new Item("Computer", "a computer", "Imageurl", 2000);
+        Item item1 = new Item("Computer",
+                "a computer",
+                "Imageurl",
+                2000);
+        item1 = itemService.save(item1);
+        item1.getItemRatings().add(new ItemRating(3,item1));
+
+
+        //Rating seed data
+
+
+
 
         // admin, data, user
         User u1 = new User("admin", "password", "admin@email.com", "admin");
