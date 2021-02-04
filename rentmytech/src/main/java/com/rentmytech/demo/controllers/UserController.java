@@ -36,9 +36,9 @@ public class UserController
 
     @PreAuthorize("hasAnyRole('ADMIN')")
     @GetMapping(value = "/user/{userid}", produces = "application/json")
-    public ResponseEntity<?> getUserById(@PathVariable long userId)
+    public ResponseEntity<?> getUserById(@PathVariable Long userid)
     {
-        User u = userService.findUserById(userId);
+        User u = userService.findUserById(userid);
         return new ResponseEntity<>(u, HttpStatus.OK);
     }
 

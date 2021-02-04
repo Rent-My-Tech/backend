@@ -23,12 +23,12 @@ public class AuthorizationServerConfig
     /**
      * Client Id is the user name for the client application. It is read from the environment variable OAUTHCLIENTID
      */
-    static final String CLIENT_ID = System.getenv("OAUTHCLIENTID");
+    static final String CLIENT_ID = "OAUTHCLIENTID";
 
     /**
      * Client secret is the password for the client application. It is read from the environment variable OAUTHCLIENTSECRET
      */
-    static final String CLIENT_SECRET = System.getenv("OAUTHCLIENTSECRET"); // read from environment variable
+    static final String CLIENT_SECRET = "OAUTHCLIENTSECRET"; // read from environment variable
 
     /**
      * We are using username and password to authenticate a user

@@ -65,7 +65,7 @@ public class User extends Auditable
 
     public User(String username, String password,  String email, String usertype) {
         this.username = username;
-        this.password = password;
+        setPassword(password);
         this.email = email;
         this.usertype = usertype;
 

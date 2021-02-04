@@ -65,7 +65,6 @@ public class ItemServiceImpl implements ItemService
         newItem.setItemRatings(item.getItemRatings());
         newItem.setItemimage(item.getItemimage());
         newItem.setItemcost(item.getItemcost());
-        newItem.setOwner(item.getOwner());
         newItem.setUser(item.getUser());
         return itemRepository.save(newItem);
 
@@ -103,11 +102,6 @@ public class ItemServiceImpl implements ItemService
         if(item.getItemdescription() !=null)
         {
             currentItem.setItemdescription(item.getItemdescription());
-        }
-
-        if(item.getOwner() !=null)
-        {
-            currentItem.setOwner(item.getOwner());
         }
 
         if(item.getUser() !=null)

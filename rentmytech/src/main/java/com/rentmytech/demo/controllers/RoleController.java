@@ -52,6 +52,6 @@ public class RoleController
     public ResponseEntity<?> updateRole(@PathVariable long roleid, @Valid @RequestBody Role newRole)
     {
         newRole = roleService.update(roleid, newRole);
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(newRole,HttpStatus.OK);
     }
 }

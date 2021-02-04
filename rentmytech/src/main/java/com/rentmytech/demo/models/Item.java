@@ -28,7 +28,6 @@ public class Item extends Auditable
 
     private String itemname;
     private String itemdescription;
-    private String owner;
     private String itemimage;
     private int itemcost;
 
@@ -37,25 +36,13 @@ public class Item extends Auditable
 
     }
 
-    public Item(User user, String itemname, String itemdescription, String owner, String itemimage, int itemcost)
+    public Item(String itemname, String itemdescription, String itemimage, int itemcost)
     {
-        this.user = user;
+        setUser(null);
         this.itemname = itemname;
         this.itemdescription = itemdescription;
-        this.owner = owner;
         this.itemimage = itemimage;
         this.itemcost = itemcost;
-    }
-
-
-    public Item(String itemname, int itemcost)
-    {
-        super();
-    }
-
-    public Item(String itemname, int itemcost, String owner, User newUser)
-    {
-        super();
     }
 
     public long getItemid() {
@@ -88,14 +75,6 @@ public class Item extends Auditable
 
     public void setItemdescription(String itemdescription) {
         this.itemdescription = itemdescription;
-    }
-
-    public String getOwner() {
-        return owner;
-    }
-
-    public void setOwner(String owner) {
-        this.owner = owner;
     }
 
 

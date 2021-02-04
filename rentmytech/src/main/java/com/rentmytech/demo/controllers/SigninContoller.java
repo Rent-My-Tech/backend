@@ -52,10 +52,6 @@ public class SigninContoller
         UserRoles ownerRole = new UserRoles(newuser, roleService.findByName("owner"));
         UserRoles renterRole = new UserRoles(newuser, roleService.findByName("renter"));
 
-        Set<UserRoles> newUserRoles = new HashSet<>();
-        newRoles.add(new UserRoles(newuser,roleService.findByName("admin")));
-        newuser.setUserroles(newUserRoles);
-
         newuser = userService.save(newuser);
 
         switch (roleName)
@@ -91,7 +87,7 @@ public class SigninContoller
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         headers.setAccept(acceptableMediaTypes);
-        headers.setBasicAuth(System.getenv("OAUTHCLIENTID"), System.getenv("OAUTHCLIENTSECRET"));
+        headers.setBasicAuth("OAUTHCLIENTID", "OAUTHCLIENTSECRET");
 
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         map.add("grant_type", "password");

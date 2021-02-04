@@ -3,10 +3,7 @@ package com.rentmytech.demo;
 import com.github.javafaker.Faker;
 import com.github.javafaker.service.FakeValuesService;
 import com.github.javafaker.service.RandomService;
-import com.rentmytech.demo.models.Role;
-import com.rentmytech.demo.models.User;
-import com.rentmytech.demo.models.UserRoles;
-import com.rentmytech.demo.models.Useremail;
+import com.rentmytech.demo.models.*;
 import com.rentmytech.demo.services.RoleService;
 import com.rentmytech.demo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,8 +60,12 @@ public class SeedData
         r2 = roleService.save(r2);
         r3 = roleService.save(r3);
 
+        //ITEM SEED DATA
+
+        Item item1 = new Item("Computer", "a computer", "Imageurl", 2000);
+
         // admin, data, user
-        User u1 = new User("newuser", "password", "email@email.com", "admin");
+        User u1 = new User("admin", "password", "admin@email.com", "admin");
         u1.getUserroles()
                 .add(new UserRoles(u1,
                         r1));
